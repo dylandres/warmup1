@@ -40,6 +40,7 @@ app.post('/ttt/',
             res.redirect('/ttt/');
     });
 
+// tic-tac-toe
 app.get('/ttt/play',
     (req, res) => {
         res.render('game.ejs');
