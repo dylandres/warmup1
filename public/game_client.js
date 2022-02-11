@@ -8,6 +8,7 @@ const clicked = (id) => {
     document.getElementById(id).disabled = true;
     // Modify grid
     grid[id] = 'X';
+    // Bot's turn
     send_move_to_server();
 }
 
@@ -26,6 +27,7 @@ const send_move_to_server = () => {
             var json = JSON.parse(xhr.responseText);
             var bots_move = json['grid']
             var winner = json['winner']
+            place_bots_move(bots_move);
             // Someone won/tie
             if (winner != ' ') {
                 // Tie
@@ -33,7 +35,6 @@ const send_move_to_server = () => {
                     document.getElementById('display').innerHTML = 'Tie xdd';
                 // Win
                 else {
-                    place_bots_move(bots_move);
                     document.getElementById('display').innerHTML = `${winner} wins!!`
                 }
                 // Disable all buttons
@@ -42,7 +43,6 @@ const send_move_to_server = () => {
             }
             // Keep playing
             else {
-                place_bots_move(bots_move);
                 grid = bots_move;
             };
         }
