@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const algos = require('./algos.js')
 const PORT = 8080;
 
 // middleware for processing json payload in a GET/POST
@@ -44,4 +45,25 @@ app.post('/ttt/',
 app.get('/ttt/play',
     (req, res) => {
         res.render('game.ejs');
+    });
+
+app.post('/ttt/play',
+    (req, res) => {
+        var grid = req.body.grid;
+        // Check if X won
+        if (algos.checkWinner(grid, 'X'))
+            res.send(JSON.stringify({'grid': grid, 'winner': 'X'}))
+        // If not, Check for tie
+        else if (algos.checkTie(grid))
+            res.send(JSON.stringify({'grid': grid, 'winner': 'T'}))
+        // If not, place an O
+        else {
+            grid = algos.botsMove(grid)
+            // Check if bot won
+            if (algos.checkWinner(grid, 'O'))
+                res.send(JSON.stringify({'grid': grid, 'winner': 'O'}))
+            // Otherwise, keep playing
+            else
+            res.send(JSON.stringify({'grid': grid, 'winner': ' '}))      
+        }
     });
