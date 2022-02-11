@@ -47,6 +47,7 @@ app.get('/ttt/play',
         res.render('game.ejs');
     });
 
+// process client POST
 app.post('/ttt/play',
     (req, res) => {
         var grid = req.body.grid;

@@ -1,5 +1,6 @@
 var grid = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 
+// Modifying front-end from user clicks
 const clicked = (id) => {
     // Put an X in the box
     document.getElementById(id).innerHTML = 'X';
@@ -10,6 +11,7 @@ const clicked = (id) => {
     send_move_to_server();
 }
 
+// Sending JSON to server
 const send_move_to_server = () => {
     // Prepare JSON
     var xhr = new XMLHttpRequest();
@@ -24,9 +26,12 @@ const send_move_to_server = () => {
             var json = JSON.parse(xhr.responseText);
             var bots_move = json['grid']
             var winner = json['winner']
+            // Someone won/tie
             if (winner != ' ') {
+                // Tie
                 if (winner == 'T')
                     document.getElementById('display').innerHTML = 'Tie xdd';
+                // Win
                 else {
                     place_bots_move(bots_move);
                     document.getElementById('display').innerHTML = `${winner} wins!!`
@@ -35,6 +40,7 @@ const send_move_to_server = () => {
                 for (i = 0; i < 9; i++)
                     document.getElementById(i).disabled = true;
             }
+            // Keep playing
             else {
                 place_bots_move(bots_move);
                 grid = bots_move;
