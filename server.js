@@ -21,18 +21,21 @@ app.listen(
 )
 app.get('/',
     (req, res) => {
+        res.set('X-CSE356', '61fac4e6c3ba403a360580f3')
         res.send('Nothing here! Visit /ttt or /ttt/play');
     })
 
 // visiting hotpink.cse356.compas.cs.stonybrook.edu/ttt
 app.get('/ttt/',
     (req, res) => {
+        res.set('X-CSE356', '61fac4e6c3ba403a360580f3')
         res.render('homepage.ejs')
     });
 
 // dynamically render name
 app.post('/ttt/',
     (req, res) => {
+        res.set('X-CSE356', '61fac4e6c3ba403a360580f3')
         var name = req.body.name;
         var date = new Date().toLocaleDateString();
         if (name)
@@ -44,12 +47,14 @@ app.post('/ttt/',
 // tic-tac-toe
 app.get('/ttt/play',
     (req, res) => {
+        res.set('X-CSE356', '61fac4e6c3ba403a360580f3')
         res.render('game.ejs');
     });
 
 // process client POST
 app.post('/ttt/play',
     (req, res) => {
+        res.set('X-CSE356', '61fac4e6c3ba403a360580f3')
         var grid = req.body.grid;
         // Check if X won
         if (algos.checkWinner(grid, 'X'))
